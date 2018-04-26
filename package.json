@@ -1,0 +1,17 @@
+{
+	"name": "request-header-parser-ms",
+	"dependencies": {
+		"express": "^4.14.0"
+	},
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"engines": {
+		"node": "6.11.5"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cghenne/request-header-parser-ms"
+	}
+}
