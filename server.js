@@ -8,6 +8,7 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+var parser = require('ua-parser-js');
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function(req, res, next) {
@@ -23,6 +24,7 @@ if (!process.env.DISABLE_XORIGIN) {
 }
 
 app.use('/public', express.static(process.cwd() + '/public'));
+app.enable('trust proxy');
 
 app.route('/_api/package.json')
   .get(function(req, res, next) {
@@ -36,7 +38,17 @@ app.route('/_api/package.json')
 app.route('/')
     .get(function(req, res) {
 		  res.sendFile(process.cwd() + '/views/index.html');
-    })
+    });
+
+app.route('/api/whoami')
+    .get(function(req, res) {
+      const ua = parser(req.headers['user-agent']);
+		  res.json({
+        ipaddress: req.ip || req.ips,
+        language: req.acceptsLanguages()[0],
+        software: ua.os.name + " - " + ua.os.version,
+      });
+    });
 
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){

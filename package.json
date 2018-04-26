@@ -1,7 +1,8 @@
 {
 	"name": "request-header-parser-ms",
 	"dependencies": {
-		"express": "^4.14.0"
+		"express": "^4.14.0",
+		"ua-parser-js": "^0.7.17"
 	},
 	"main": "server.js",
 	"scripts": {
